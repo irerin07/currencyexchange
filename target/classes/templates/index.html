@@ -37,8 +37,8 @@
                 환율:
             </p>
             <p>
-                <label for="input">송금액:</label>
-                <input type="text" id="input" style="width: 240px;" placeholder="송금할 금액을 입력하세요."> <b>USD</b></input>
+                <label for="amount">송금액:</label>
+                <input type="text" id="amount" style="width: 240px;" placeholder="송금할 금액을 입력하세요."> <b>USD</b></input>
             </p>
             <p>
                 <button class="btn btn-dark" onclick="calculateCurrency()">Submit</button>
@@ -54,6 +54,7 @@
     function calculateCurrency(){
         var from = $('#from').val();
         var to = $('#to').val();
+        var amount = $('#amount').val();
         $.ajax({
             url: "/api/exchangerate",
             type: 'get',

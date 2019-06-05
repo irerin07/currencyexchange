@@ -27,6 +27,11 @@ public class CurrencyLayerRESTController {
         return new ResponseEntity(currencyLayerDto, HttpStatus.OK);
     }
 
+//    @GetMapping("/receiving-amount")
+//    public ResponseEntity getReceivingAmount(@Valid @ModelAttribute InputDto inputDto) {
+//       return null;
+//    }
+
 //    @GetMapping("/exchangerate")
 //    public Mono<ResponseEntity<CurrencyLayerDto>> getExchangeRate(){
 ////        Mono<CurrencyLayerDto> searchResult = currencyLayerAPIService.getCurrencyRate();
