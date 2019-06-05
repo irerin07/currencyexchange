@@ -51,5 +51,20 @@
 </div>
 </body>
 <script>
+    function calculateCurrency(){
+        var from = $('#from').val();
+        var to = $('#to').val();
+        $.ajax({
+            url: "/api/exchangerate",
+            type: 'get',
+            success: function(data){
+                console.log(data);
+                console.log(data.quotes);
+            },
+            error: function(err){
+                console.log(err);
+            }
 
+        })
+    }
 </script>
