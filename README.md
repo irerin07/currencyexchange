@@ -24,6 +24,7 @@ currencylayer api를 사용해 구현한 간단한 환율 계산 프로그램입
 * 
 
 # 어려웠던 부분
+CurrencyLayerAPIService
 Webclient를 통해 Mono형태로 데이터를 가지고 왔지만 이 부분을 어떻게 처리해야 하나 굉장히 고민을 많이 했습니다.
 기존 TwelveBooks 프로젝트에서는 Mono형태로 프런트로 값을 넘겨 준 다음에 처리했지만 
 이번 미니 프로젝트의 경우에는 환율을 한 결과값을 넘겨주고 싶어서 Mono형태를 Dto에 맞게 푸는 방법을 찾느라 검색을 많이 했습니다.
