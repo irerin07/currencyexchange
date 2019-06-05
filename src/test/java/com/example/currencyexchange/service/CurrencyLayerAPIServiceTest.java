@@ -22,12 +22,9 @@ public class CurrencyLayerAPIServiceTest {
 
     @Test
     public void 환율정보_불러오기(){
-//        Mono<CurrencyLayerDto> searchResult = currencyLayerAPIService.getCurrencyRate();
-//        Assert.assertNotNull(searchResult);
-//        searchResult.doOnNext(r->{
-//            System.out.println("result: " + r.getQuotes());
-//        } ).subscribe();
-////        LOGGER.info("test result: {}", searchResult.block());
+        CurrencyLayerDto searchResult = currencyLayerAPIService.getCurrencyRate();
+        Assert.assertNotNull(searchResult);
+
     }
 
 }

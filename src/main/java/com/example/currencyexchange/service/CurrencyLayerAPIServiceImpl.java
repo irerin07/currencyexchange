@@ -4,6 +4,7 @@ import com.example.currencyexchange.dto.CurrencyLayerDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestClientException;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
 
@@ -28,22 +29,19 @@ public class CurrencyLayerAPIServiceImpl implements CurrencyLayerAPIService {
 
     @Override
     public CurrencyLayerDto getCurrencyRate() {
-        currencyLayerDtoMono = webClient.get().uri("/live?access_key=" + accessKey+ "&source=" + source + "&currencies=" + currencies)
-                .retrieve()
-                .bodyToMono(CurrencyLayerDto.class);
-        currencyLayerDto = currencyLayerDtoMono.block();
-        System.out.println(currencyLayerDto.getQuotes());
-        System.out.println(currencyLayerDto.getTimestamp());
-        System.out.println(currencyLayerDto.getError());
-        return currencyLayerDto;
+            currencyLayerDtoMono = webClient.get().uri("/live?access_key=" + accessKey + "&source=" + source + "&currencies=" + currencies)
+                    .retrieve()
+                    .bodyToMono(CurrencyLayerDto.class);
+            currencyLayerDto = currencyLayerDtoMono.block();
+
+            if(currencyLayerDto == null){
+                throw new RestClientException("환율정보를 불러오지 못했습니다.");
+            }else if(!currencyLayerDto.isSuccess()){
+                throw new RestClientException("API 호출간 에러가 발생했습니다."
+                        + currencyLayerDto.getError().get("code") + " : "
+                        + currencyLayerDto.getError().get("type"));
+            }
+            return currencyLayerDto;
     }
 
-
-//    @Override
-//    public Mono<CurrencyLayerDto> getCurrencyRate() {
-//        Mono<CurrencyLayerDto> currencyLayerDtoMono = webClient.get().uri("/live?access_key=" + accessKey+ "&source=" + source + "&currencies=" + currencies)
-//                .retrieve()
-//                .bodyToMono(CurrencyLayerDto.class);
-//        return currencyLayerDtoMono;
-//    }
 }
