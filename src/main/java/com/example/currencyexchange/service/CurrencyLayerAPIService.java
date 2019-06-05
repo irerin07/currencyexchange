@@ -5,5 +5,6 @@ import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 public interface CurrencyLayerAPIService {
-    public Mono<CurrencyLayerDto> getCurrencyRate();
+    public CurrencyLayerDto getCurrencyRate();
+//    public Mono<CurrencyLayerDto> getCurrencyRate();
 }
