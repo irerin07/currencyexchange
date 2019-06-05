@@ -28,9 +28,9 @@
             <p>
                 <label for="to">수취 국가: </label>
                 <select id="to">
-                    <option value="KRW">한국(KRW)</option>
-                    <option value="JPN">일본(JPN)</option>
-                    <option value="PHP">필리핀(PHP)</option>
+                    <option value="USDKRW">한국(KRW)</option>
+                    <option value="USDJPN">일본(JPN)</option>
+                    <option value="USDPHP">필리핀(PHP)</option>
                 </select>
             </p>
             <p>
@@ -60,6 +60,8 @@
             success: function(data){
                 console.log(data);
                 console.log(data.quotes);
+                console.log(data.timestamp);
+
             },
             error: function(err){
                 console.log(err);

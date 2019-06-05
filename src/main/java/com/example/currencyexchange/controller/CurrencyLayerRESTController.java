@@ -21,11 +21,18 @@ public class CurrencyLayerRESTController {
     private CurrencyLayerDto currencyLayerDto;
 
     @GetMapping("/exchangerate")
-    public Mono<ResponseEntity> getExchangeRate(){
-        Mono<CurrencyLayerDto> searchResult = currencyLayerAPIService.getCurrencyRate();
+    public ResponseEntity getExchangeRate(){
+        currencyLayerDto = currencyLayerAPIService.getCurrencyRate();
 
-        Mono<ResponseEntity> response = searchResult.map(u -> new ResponseEntity(u.getQuotes(), HttpStatus.OK));
-
-        return response;
+        return new ResponseEntity(currencyLayerDto, HttpStatus.OK);
     }
+
+//    @GetMapping("/exchangerate")
+//    public Mono<ResponseEntity<CurrencyLayerDto>> getExchangeRate(){
+////        Mono<CurrencyLayerDto> searchResult = currencyLayerAPIService.getCurrencyRate();
+////
+////
+////        return new ResponseEntity<>(searchResult, HttpStatus.OK);
+//        return currencyLayerAPIService.getCurrencyRate().map(savedTweet -> ResponseEntity.ok(savedTweet)).defaultIfEmpty(ResponseEntity.notFound().build());
+//    }
 }
