@@ -6,6 +6,8 @@ currencylayer api를 사용해 구현한 간단한 환율 계산 프로그램입
 * Java 8
 * SpringBoot 2.1.5
 * Thymeleaf
+* JavaScript
+* jQuery
 
 # 구현 요구사항
 * 송금국가는 미국으로 고정입니다. 통화는 미국달러(USD)입니다.
