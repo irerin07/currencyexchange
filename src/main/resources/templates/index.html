@@ -19,30 +19,35 @@
     <div>
         <fieldset>
             <legend>환율 계산</legend>
-            <p>
-                <label for="from">송금 국가: </label>
+            <div class="fromdiv">
+                <label for="from"><b>송금 국가: </b></label>
                 <select id="from">
                     <option selected value="USD">미국(USD)</option>
                 </select>
-            </p>
-            <p>
-                <label for="to">수취 국가: </label>
+            </div>
+            <div class="todiv">
+                <label for="to"><b>수취 국가: </b></label>
                 <select id="to">
                     <option selected value="KRW">한국(KRW)</option>
                     <option value="JPY">일본(JPN)</option>
                     <option value="PHP">필리핀(PHP)</option>
                 </select>
-            </p>
-            <p>
-                환율:
-            </p>
-            <p>
-                <label for="amount">송금액:</label>
-                <input type="text" id="amount" style="width: 240px;" placeholder="송금할 금액을 입력하세요."> <b>USD</b></input>
-            </p>
-            <p>
+            </div>
+
+            <div class="currencydiv">
+                <label><b>환율</b></label>
+                <div class="currencyfield">
+                    <span id="currency"></span>
+                </div>
+            </div>
+
+            <div class="amountdiv">
+                <label for="amount"><b>송금액: </b></label>
+                <input type="text" id="amount" style="width: 240px;" placeholder=""> <b>USD</b></input>
+            </div>
+            <div>
                 <button class="btn btn-dark" onclick="calculateCurrency()">Submit</button>
-            </p>
+            </div>
 
         </fieldset>
     </div>
@@ -51,14 +56,14 @@
 </div>
 </body>
 <script>
-    $(document).ready(function(){
+    $(document).ready(function () {
         getCurrencyRate();
     });
-    $('select').on('change', function() {
+    $('select').on('change', function () {
         getCurrencyRate();
     });
 
-    function getCurrencyRate(){
+    function getCurrencyRate() {
         var from = $('#from').val();
         var to = $('#to').val();
         console.log(from);
@@ -67,10 +72,12 @@
         $.ajax({
             url: "/api/exchangerate?from=" + from + "&to=" + to,
             type: 'get',
-            success: function(data){
+            success: function (data) {
                 console.log(data);
+
+                $('#currency').text(data + " " + from + "/" + to);
             },
-            error: function(err){
+            error: function (err) {
                 console.log(err);
             }
 
