@@ -29,7 +29,7 @@
                 <label for="to">수취 국가: </label>
                 <select id="to">
                     <option selected value="KRW">한국(KRW)</option>
-                    <option value="JPN">일본(JPN)</option>
+                    <option value="JPY">일본(JPN)</option>
                     <option value="PHP">필리핀(PHP)</option>
                 </select>
             </p>
@@ -54,7 +54,7 @@
     $(document).ready(function(){
         getCurrencyRate();
     });
-    select.addEventListener('change',function(){
+    $('select').on('change', function() {
         getCurrencyRate();
     });
 
