@@ -22,15 +22,15 @@
             <p>
                 <label for="from">송금 국가: </label>
                 <select id="from">
-                    <option value="USD">미국(USD)</option>
+                    <option selected value="USD">미국(USD)</option>
                 </select>
             </p>
             <p>
                 <label for="to">수취 국가: </label>
                 <select id="to">
-                    <option value="USDKRW">한국(KRW)</option>
-                    <option value="USDJPN">일본(JPN)</option>
-                    <option value="USDPHP">필리핀(PHP)</option>
+                    <option selected value="KRW">한국(KRW)</option>
+                    <option value="JPN">일본(JPN)</option>
+                    <option value="PHP">필리핀(PHP)</option>
                 </select>
             </p>
             <p>
@@ -51,18 +51,24 @@
 </div>
 </body>
 <script>
-    function calculateCurrency(){
+    $(document).ready(function(){
+        getCurrencyRate();
+    });
+    select.addEventListener('change',function(){
+        getCurrencyRate();
+    });
+
+    function getCurrencyRate(){
         var from = $('#from').val();
         var to = $('#to').val();
-        var amount = $('#amount').val();
+        console.log(from);
+        console.log(to);
+        var amount = document.getElementById("amount").defaultValue = 0;
         $.ajax({
-            url: "/api/exchangerate",
+            url: "/api/exchangerate?from=" + from + "&to=" + to,
             type: 'get',
             success: function(data){
                 console.log(data);
-                console.log(data.quotes);
-                console.log(data.timestamp);
-
             },
             error: function(err){
                 console.log(err);

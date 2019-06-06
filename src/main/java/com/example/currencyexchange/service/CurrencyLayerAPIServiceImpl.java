@@ -39,7 +39,7 @@ public class CurrencyLayerAPIServiceImpl implements CurrencyLayerAPIService {
             }else if(!currencyLayerDto.isSuccess()){
                 throw new RestClientException("API 호출간 에러가 발생했습니다."
                         + currencyLayerDto.getError().get("code") + " : "
-                        + currencyLayerDto.getError().get("type"));
+                        + currencyLayerDto.getError().get("info"));
             }
             return currencyLayerDto;
     }

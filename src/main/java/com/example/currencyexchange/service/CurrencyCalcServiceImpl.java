@@ -1,4 +1,19 @@
 package com.example.currencyexchange.service;
 
-public class CurrencyCalcServiceImpl {
+import com.example.currencyexchange.dto.CurrencyLayerDto;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+@Service
+public class CurrencyCalcServiceImpl implements CurrencyCalcService{
+
+    @Autowired
+    CurrencyLayerAPIService currencyLayerAPIService;
+
+    @Override
+    public Double getExchangeRate(String from, String to) {
+        CurrencyLayerDto currencyLayerDto = currencyLayerAPIService.getCurrencyRate();
+        Double currency = currencyLayerDto.getQuotes().get(from+to);
+        return currency;
+    }
 }
