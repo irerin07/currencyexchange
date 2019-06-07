@@ -3,6 +3,7 @@ currency calculator using currencyLayer API
 currencylayer api를 사용해 구현한 간단한 환율 계산 프로그램입니다.
 
 ![GitPyCrawler](https://github.com/irerin07/currencyexchange/blob/master/doc/123123123.PNG?raw=true "GitPyCrawler")
+![GitPyCrawler](https://github.com/irerin07/currencyexchange/blob/master/doc/123.PNG?raw=true "GitPyCrawler")
 
 # 사용 기술
 * Java 8
