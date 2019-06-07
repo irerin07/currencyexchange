@@ -11,7 +11,7 @@ public class CurrencyCalcServiceImpl implements CurrencyCalcService{
     CurrencyLayerAPIService currencyLayerAPIService;
 
     @Override
-    public Double getExchangeRate(String from, String to) {
+    public Double getExchangeRate(String from, String to, Double amount) {
         CurrencyLayerDto currencyLayerDto = currencyLayerAPIService.getCurrencyRate();
         Double currency = currencyLayerDto.getQuotes().get(from+to);
         return currency;

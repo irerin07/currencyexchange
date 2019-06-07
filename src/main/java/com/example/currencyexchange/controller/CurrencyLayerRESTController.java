@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.RestController;
 import reactor.core.publisher.Mono;
 
 import javax.validation.Valid;
+import java.util.HashMap;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api")
@@ -27,8 +29,25 @@ public class CurrencyLayerRESTController {
 
     @GetMapping("/exchangerate")
     public ResponseEntity getExchangeRate(@Valid @ModelAttribute CurrencyExchangeInputDto currencyExchangeInputDto){
-        Double currency = currencyCalcService.getExchangeRate(currencyExchangeInputDto.getFrom(), currencyExchangeInputDto.getTo());
+        Double currency = currencyCalcService.getExchangeRate(currencyExchangeInputDto.getFrom(), currencyExchangeInputDto.getTo(), currencyExchangeInputDto.getAmount());
         return new ResponseEntity(currency, HttpStatus.OK);
+    }
+
+    @GetMapping("/exchangedamount")
+    public ResponseEntity getExchangedAmount(@Valid @ModelAttribute CurrencyExchangeInputDto currencyExchangeInputDto){
+
+        Map<String, Double> responseMap = new HashMap<>();
+        System.out.println(currencyExchangeInputDto.getFrom() + " : " + currencyExchangeInputDto.getTo() + " : " + currencyExchangeInputDto.getAmount());
+
+        Double currency = currencyCalcService.getExchangeRate(currencyExchangeInputDto.getFrom(), currencyExchangeInputDto.getTo(), currencyExchangeInputDto.getAmount());
+        Double exchangedAmount = (currency * currencyExchangeInputDto.getAmount());
+
+        System.out.println(currency + " : " + exchangedAmount);
+
+        responseMap.put("currency", currency);
+        responseMap.put("exchangedAmount", exchangedAmount);
+
+        return new ResponseEntity(responseMap, HttpStatus.OK);
     }
 
 //    @GetMapping("/receiving-amount")

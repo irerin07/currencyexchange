@@ -2,10 +2,7 @@ package com.example.currencyexchange.dto;
 
 import lombok.Data;
 
-import javax.validation.constraints.Max;
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Pattern;
+import javax.validation.constraints.*;
 
 @Data
 public class CurrencyExchangeInputDto {
@@ -13,7 +10,10 @@ public class CurrencyExchangeInputDto {
     private String from;
     @NotBlank
     private String to;
+
+    @NotNull
     @Min(0)
     @Max(10000)
-    private double amountSending;
+//    @Pattern(regexp = "[+-]?([0-9]*[.])?[0-9]+", message = "숫자만 입력해 주세요.")
+    private double amount;
 }
