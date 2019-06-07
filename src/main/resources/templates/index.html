@@ -45,8 +45,10 @@
                 <label for="amount"><b>송금액: </b></label>
                 <input type="text" id="amount" style="width: 240px;" placeholder=""> <b>USD</b></input>
             </div>
+            <div id="submitResponse">
+            </div>
             <div>
-                <button class="btn btn-dark" onclick="calculateCurrency()">Submit</button>
+                <button class="btn btn-dark" onclick="getExchangedAmount()">Submit</button>
             </div>
 
         </fieldset>
@@ -68,14 +70,36 @@
         var to = $('#to').val();
         console.log(from);
         console.log(to);
-        var amount = document.getElementById("amount").defaultValue = 0;
+        var amount = document.getElementById("amount").defaultValue = 0.0;
         $.ajax({
-            url: "/api/exchangerate?from=" + from + "&to=" + to,
+            url: "/api/exchangerate?from=" + from + "&to=" + to + "&amount=" + amount,
             type: 'get',
             success: function (data) {
                 console.log(data);
 
                 $('#currency').text(data + " " + from + "/" + to);
+            },
+            error: function (err) {
+                console.log(err);
+            }
+
+        })
+    }
+
+    function getExchangedAmount() {
+        var from = $('#from').val();
+        var to = $('#to').val();
+        var amount =$('#amount').val();
+        console.log(from);
+        console.log(to);
+        console.log(amount);
+        $.ajax({
+            url: "/api/exchangedamount?from=" + from + "&to=" + to + "&amount=" + amount,
+            type: 'get',
+            success: function (data) {
+                console.log(data);
+                $('#currency').text(data.currency + " " + from + "/" + to);
+                $('#submitResponse').text(data.exchangedAmount);
             },
             error: function (err) {
                 console.log(err);
