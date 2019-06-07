@@ -99,7 +99,7 @@
             success: function (data) {
                 console.log(data);
                 $('#currency').text(data.currency + " " + from + "/" + to);
-                $('#submitResponse').text(data.exchangedAmount);
+                $('#submitResponse').text(data.stringAmount + " " + to + "을/를 환전 받으실 수 있습니다.");
             },
             error: function (err) {
                 console.log(err);

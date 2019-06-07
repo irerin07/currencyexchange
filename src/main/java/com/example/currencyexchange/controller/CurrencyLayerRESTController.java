@@ -15,7 +15,10 @@ import org.springframework.web.bind.annotation.RestController;
 import reactor.core.publisher.Mono;
 
 import javax.validation.Valid;
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 
 @RestController
@@ -29,38 +32,29 @@ public class CurrencyLayerRESTController {
 
     @GetMapping("/exchangerate")
     public ResponseEntity getExchangeRate(@Valid @ModelAttribute CurrencyExchangeInputDto currencyExchangeInputDto){
+        DecimalFormat doubleFormat = new DecimalFormat("#,##0.00");
         Double currency = currencyCalcService.getExchangeRate(currencyExchangeInputDto.getFrom(), currencyExchangeInputDto.getTo(), currencyExchangeInputDto.getAmount());
-        return new ResponseEntity(currency, HttpStatus.OK);
+        String stringCurrency = doubleFormat.format(currency);
+
+        return new ResponseEntity(stringCurrency, HttpStatus.OK);
     }
 
     @GetMapping("/exchangedamount")
     public ResponseEntity getExchangedAmount(@Valid @ModelAttribute CurrencyExchangeInputDto currencyExchangeInputDto){
 
-        Map<String, Double> responseMap = new HashMap<>();
-        System.out.println(currencyExchangeInputDto.getFrom() + " : " + currencyExchangeInputDto.getTo() + " : " + currencyExchangeInputDto.getAmount());
+        Map<String, String> responseMap = new HashMap<>();
+        DecimalFormat doubleFormat = new DecimalFormat("#,##0.00");
 
         Double currency = currencyCalcService.getExchangeRate(currencyExchangeInputDto.getFrom(), currencyExchangeInputDto.getTo(), currencyExchangeInputDto.getAmount());
         Double exchangedAmount = (currency * currencyExchangeInputDto.getAmount());
 
-        System.out.println(currency + " : " + exchangedAmount);
+        NumberFormat n = NumberFormat.getCurrencyInstance(Locale.KOREA);
+        String stringAmount = doubleFormat.format((exchangedAmount));
+        String stringCurrency = doubleFormat.format(currency);
 
-        responseMap.put("currency", currency);
-        responseMap.put("exchangedAmount", exchangedAmount);
+        responseMap.put("currency", stringCurrency);
+        responseMap.put("stringAmount", stringAmount);
 
         return new ResponseEntity(responseMap, HttpStatus.OK);
     }
-
-//    @GetMapping("/receiving-amount")
-//    public ResponseEntity getReceivingAmount(@Valid @ModelAttribute InputDto inputDto) {
-//       return null;
-//    }
-
-//    @GetMapping("/exchangerate")
-//    public Mono<ResponseEntity<CurrencyLayerDto>> getExchangeRate(){
-////        Mono<CurrencyLayerDto> searchResult = currencyLayerAPIService.getCurrencyRate();
-////
-////
-////        return new ResponseEntity<>(searchResult, HttpStatus.OK);
-//        return currencyLayerAPIService.getCurrencyRate().map(savedTweet -> ResponseEntity.ok(savedTweet)).defaultIfEmpty(ResponseEntity.notFound().build());
-//    }
 }
