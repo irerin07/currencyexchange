@@ -45,10 +45,10 @@
                 <label for="amount"><b>송금액: </b></label>
                 <input type="text" id="amount" style="width: 240px;" placeholder=""> <b>USD</b></input>
             </div>
-            <div id="submitResponse">
+            <div id="inputCheckResult">
             </div>
             <div>
-                <button class="btn btn-dark" onclick="getExchangedAmount()">Submit</button>
+                <button class="btn btn-dark" onclick="getExchangedAmount()">환전하기</button>
             </div>
 
         </fieldset>
@@ -90,6 +90,12 @@
         var from = $('#from').val();
         var to = $('#to').val();
         var amount =$('#amount').val();
+
+        if (wrongInput()) {
+            $('#inputCheckResult').html("<div style='color: #ff6666;'><p>송금액을 확인해주세요.</p></div>");
+            return;
+        }
+
         console.log(from);
         console.log(to);
         console.log(amount);
@@ -99,12 +105,22 @@
             success: function (data) {
                 console.log(data);
                 $('#currency').text(data.currency + " " + from + "/" + to);
-                $('#submitResponse').text(data.stringAmount + " " + to + "을/를 환전 받으실 수 있습니다.");
+                $('#inputCheckResult').html("<div style='color: forestgreen;'><p>"+data.stringAmount+ " " + to + "을/를 받으실 수 있습니다.</p></div>");
             },
             error: function (err) {
                 console.log(err);
             }
 
         })
+
+        function wrongInput() {
+            var amount = $('#amount').val();
+            var reg = /[-+]?[0-9]*\.?[0-9]+/;
+            if(reg.test(amount)==false){
+               return true;
+            }
+            return (amount.length <= 0 || amount < 0 || amount > 10000);
+
+        }
     }
 </script>

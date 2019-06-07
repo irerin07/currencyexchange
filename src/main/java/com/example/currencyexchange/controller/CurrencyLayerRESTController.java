@@ -41,16 +41,14 @@ public class CurrencyLayerRESTController {
 
     @GetMapping("/exchangedamount")
     public ResponseEntity getExchangedAmount(@Valid @ModelAttribute CurrencyExchangeInputDto currencyExchangeInputDto){
-
         Map<String, String> responseMap = new HashMap<>();
         DecimalFormat doubleFormat = new DecimalFormat("#,##0.00");
 
         Double currency = currencyCalcService.getExchangeRate(currencyExchangeInputDto.getFrom(), currencyExchangeInputDto.getTo(), currencyExchangeInputDto.getAmount());
         Double exchangedAmount = (currency * currencyExchangeInputDto.getAmount());
 
-        NumberFormat n = NumberFormat.getCurrencyInstance(Locale.KOREA);
-        String stringAmount = doubleFormat.format((exchangedAmount));
         String stringCurrency = doubleFormat.format(currency);
+        String stringAmount = doubleFormat.format((exchangedAmount));
 
         responseMap.put("currency", stringCurrency);
         responseMap.put("stringAmount", stringAmount);
