@@ -2,13 +2,14 @@
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
-    <script src="/webjars/jquery/3.3.1-2/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
             integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
             crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
             integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
             crossorigin="anonymous"></script>
+    <script src="/webjars/jquery/3.3.1-2/jquery.min.js"></script>
+    <script src="js/script.js"></script>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
           integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <title>환율 계산기</title>
@@ -64,74 +65,3 @@
 
 </div>
 </body>
-<script>
-    $(document).ready(function () {
-        getCurrencyRate();
-    });
-    $('select').on('change', function () {
-        getCurrencyRate();
-    });
-    $('#amount').keypress(function (e) {
-        if (e.which === 13) {
-            getExchangedAmount();
-        }
-    });
-
-    function getCurrencyRate() {
-        var from = $('#from').val();
-        var to = $('#to').val();
-        console.log(from);
-        console.log(to);
-        var amount = document.getElementById("amount").defaultValue = 0.0;
-        $.ajax({
-            url: "/api/exchangerate?from=" + from + "&to=" + to + "&amount=" + amount,
-            type: 'get',
-            success: function (data) {
-                console.log(data);
-
-                $('#currency').text(data + " " + to + "/" + from);
-            },
-            error: function (err) {
-                console.log(err);
-            }
-
-        })
-    }
-
-    function getExchangedAmount() {
-        var from = $('#from').val();
-        var to = $('#to').val();
-        var amount = $('#amount').val();
-
-        if (wrongInput()) {
-            $('#inputCheckResult').html("<div style='color: #ff6666;'><p>송금액을 확인해주세요.</p></div>");
-            return;
-        }
-
-        console.log(from);
-        console.log(to);
-        console.log(amount);
-        $.ajax({
-            url: "/api/exchangedamount?from=" + from + "&to=" + to + "&amount=" + amount,
-            type: 'get',
-            success: function (data) {
-                console.log(data);
-                $('#currency').text(data.currency + " " + to + "/" + from);
-                $('#inputCheckResult').html("<div style='color: forestgreen;'><p>" + data.stringAmount + " " + to + "을/를 받으실 수 있습니다.</p></div>");
-            },
-            error: function (err) {
-                console.log(err);
-            }
-        })
-
-        function wrongInput() {
-            var amount = $('#amount').val();
-            var reg = /[-+]?[0-9]*\.?[0-9]+/;
-            if (reg.test(amount) == false) {
-                return true;
-            }
-            return (amount.length <= 0 || amount < 0 || amount > 10000);
-        }
-
-    }
-</script>
