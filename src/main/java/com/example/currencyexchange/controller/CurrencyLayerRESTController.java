@@ -4,6 +4,7 @@ import com.example.currencyexchange.dto.CurrencyExchangeInputDto;
 import com.example.currencyexchange.dto.CurrencyLayerDto;
 import com.example.currencyexchange.service.CurrencyCalcService;
 import com.example.currencyexchange.service.CurrencyLayerAPIService;
+import com.example.currencyexchange.util.DecimalFormat;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -15,7 +16,6 @@ import org.springframework.web.bind.annotation.RestController;
 import reactor.core.publisher.Mono;
 
 import javax.validation.Valid;
-import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.HashMap;
 import java.util.Locale;
@@ -32,9 +32,8 @@ public class CurrencyLayerRESTController {
 
     @GetMapping("/exchangerate")
     public ResponseEntity getExchangeRate(@Valid @ModelAttribute CurrencyExchangeInputDto currencyExchangeInputDto){
-        DecimalFormat doubleFormat = new DecimalFormat("#,##0.00");
         Double currency = currencyCalcService.getExchangeRate(currencyExchangeInputDto.getFrom(), currencyExchangeInputDto.getTo(), currencyExchangeInputDto.getAmount());
-        String stringCurrency = doubleFormat.format(currency);
+        String stringCurrency = DecimalFormat.convertDoubleToString(currency);
 
         return new ResponseEntity(stringCurrency, HttpStatus.OK);
     }
@@ -42,13 +41,12 @@ public class CurrencyLayerRESTController {
     @GetMapping("/exchangedamount")
     public ResponseEntity getExchangedAmount(@Valid @ModelAttribute CurrencyExchangeInputDto currencyExchangeInputDto){
         Map<String, String> responseMap = new HashMap<>();
-        DecimalFormat doubleFormat = new DecimalFormat("#,##0.00");
 
         Double currency = currencyCalcService.getExchangeRate(currencyExchangeInputDto.getFrom(), currencyExchangeInputDto.getTo(), currencyExchangeInputDto.getAmount());
         Double exchangedAmount = (currency * currencyExchangeInputDto.getAmount());
 
-        String stringCurrency = doubleFormat.format(currency);
-        String stringAmount = doubleFormat.format((exchangedAmount));
+        String stringCurrency = DecimalFormat.convertDoubleToString(currency);
+        String stringAmount = DecimalFormat.convertDoubleToString((exchangedAmount));
 
         responseMap.put("currency", stringCurrency);
         responseMap.put("stringAmount", stringAmount);

@@ -55,12 +55,10 @@ public class CurrencyLayerAPIServiceImpl implements CurrencyLayerAPIService {
         //조금 더 큰 단위로 변환하는것을 추천하기에 toMinutes 변경, refreshRate도 역시 분 단위로 변경
         long currentMin = TimeUnit.MILLISECONDS.toMinutes(System.currentTimeMillis());
         if(TimeUnit.SECONDS.toMinutes(currentMin - currencyLayerDto.getTimestamp()) > refreshRate){
-            System.out.println("not latest! update required");
             latest = false;
-        }
-        if(TimeUnit.SECONDS.toMinutes(currentMin - currencyLayerDto.getTimestamp()) <= refreshRate){
-            System.out.println("latest! update not required");
+        }else{
             latest = true;
+
         }
         return latest;
     }
