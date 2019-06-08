@@ -18,7 +18,6 @@ public class CurrencyCalcServiceImpl implements CurrencyCalcService{
         CurrencyLayerDto currencyLayerDto = currencyLayerAPIService.getCurrencyRate();
         Double currency = currencyLayerDto.getQuotes().get(from+to);
 
-
         return currency;
     }
 }
