@@ -35,17 +35,21 @@ public class CurrencyLayerAPIServiceImpl implements CurrencyLayerAPIService {
                     .retrieve()
                     .bodyToMono(CurrencyLayerDto.class);
             currencyLayerDto = currencyLayerDtoMono.block();
-            if (currencyLayerDto == null) {
-                throw new RestClientException("환율정보를 불러오지 못했습니다.");
-            } else if (!currencyLayerDto.isSuccess()) {
-                throw new RestClientException("API 호출간 에러가 발생했습니다." + currencyLayerDto.getError().get("code") + " : " + currencyLayerDto.getError().get("info"));
-            }
-            return currencyLayerDto;
+            return getCurrencyLayerDto();
+        }
+        return getCurrencyLayerDto();
+    }
+
+    private CurrencyLayerDto getCurrencyLayerDto() {
+        if (currencyLayerDto == null) {
+            throw new RestClientException("환율정보를 불러오지 못했습니다.");
+        } else if (!currencyLayerDto.isSuccess()) {
+            throw new RestClientException("API 호출간 에러가 발생했습니다." + currencyLayerDto.getError().get("code") + " : " + currencyLayerDto.getError().get("info"));
         }
         return currencyLayerDto;
     }
 
-    public Boolean checkIfLatestCurrency(){
+    private Boolean checkIfLatestCurrency(){
         boolean latest = false;
         if(currencyLayerDto == null){
             return false;
