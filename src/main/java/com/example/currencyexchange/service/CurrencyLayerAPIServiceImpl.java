@@ -12,6 +12,8 @@ import java.util.concurrent.TimeUnit;
 
 @Service
 public class CurrencyLayerAPIServiceImpl implements CurrencyLayerAPIService {
+    //기존 twelvebooks 프로젝트에서는 rest.properties파일에 api키를 집어넣어 RestProperties클래스에서 getResourceAsStream() 메서드를 사용해 API KEY를 읽어왔으나
+    //이번 프로젝트에서는 Environment와 @Value중 무엇을 사용할까 하다 @Value를 사용해보기로 결정했습니다.
     @Value("${currencyLayer.accessKey}")
     private String accessKey;
     @Value("${currencyLayer.endPoint}")
@@ -55,11 +57,9 @@ public class CurrencyLayerAPIServiceImpl implements CurrencyLayerAPIService {
         //조금 더 큰 단위로 변환하는것을 추천하기에 toMinutes 변경, refreshRate도 역시 분 단위로 변경
         long currentMin = TimeUnit.MILLISECONDS.toMinutes(System.currentTimeMillis());
         if(TimeUnit.SECONDS.toMinutes(currentMin - currencyLayerDto.getTimestamp()) > refreshRate){
-            System.out.println("not latest! update required");
             latest = false;
         }
         if(TimeUnit.SECONDS.toMinutes(currentMin - currencyLayerDto.getTimestamp()) <= refreshRate){
-            System.out.println("latest! update not required");
             latest = true;
         }
         return latest;
