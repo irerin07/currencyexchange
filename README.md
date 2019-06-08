@@ -25,6 +25,17 @@ currencylayer api를 사용해 구현한 간단한 환율 계산 프로그램입
 * Submit을 누르면 선택된 수취국가와 그 환율, 그리고 송금액을 가지고 수취금액을 계산해서 하단에 보여주면 됩니다. API를 이용해서 서버에서 계산해서 뿌려도 되고 자바스크립트로 미리 가져온 환율을 계산해서 수취금액을 보여줘도 되고 Submit 버튼으로 폼을 submit해서 화면을 새로 그려도 됩니다.
 * 수취금액을 입력하지 않거나, 0보다 작은 금액이거나 10,000 USD보다 큰 금액, 혹은 바른 숫자가 아니라면 “송금액이 바르지 않습니다"라는 에러 메시지를 보여줍니다. 메시지는 팝업, 혹은 하단에 빨간 글씨로 나타나면 됩니다.
 
+# 구현 기능
+* CurrencyLayerRESTController
+  * getExchangeRate
+  * getExchangedAmount
+* GetCurrencyRateScheduler
+  * updateCurrencyRates
+* CurrencyCalcService
+  *  getExchangeRate
+* CurrencyLayerAPIService
+  *  getCurrencyRate
+
 # 설계
 * 
 
@@ -37,5 +48,5 @@ map, subscribe, doOnNext등 여러가지 방법들을 사용해봤지만 원하�
 
 # 개선점
 * 스케줄러를 쓸것인지 말것인지 고민을 해봐야 할 것 같다. 스케줄러를 써서 매시간 환율정보를 업데이트 해주면 항상 최신 정보를 유지할 수 있겠지만 API 호출이 너무 자주 일어나게된다.
-* 현재 사용하고 있는 정규표현식은 문자와 숫자의 조합을 잡아내지 못하고 있다. (eg. 1q2w) 이 부분 수정이 필요하다.
+* 현재 사용하고 있는 정규표현식은 문자와 숫자의 조합을 잡아내지 못하고 있다. (eg. 1q2w) 이 부분은 수정이 필요할것 같다.
 
