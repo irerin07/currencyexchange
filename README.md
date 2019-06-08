@@ -1,9 +1,9 @@
 # currencyexchange
 currency calculator using currencyLayer API  
 currencylayer api를 사용해 구현한 간단한 환율 계산 프로그램입니다.
-![Imgur](https://imgur.com/FpbRQGw)
-![Imgur](https://imgur.com/ags9igM)
-![Imgur](https://imgur.com/77lno5l)
+![Imgur](http://i.imgur.com/FpbRQGw.png)
+![Imgur](http://i.imgur.com/ags9igM.png)
+![Imgur](http://i.imgur.com/77lno5l.png)
 
 
 # 사용 기술
