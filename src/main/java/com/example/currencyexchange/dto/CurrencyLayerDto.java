@@ -1,7 +1,6 @@
 package com.example.currencyexchange.dto;
 import lombok.Data;
 
-import java.util.HashMap;
 import java.util.Map;
 
 /*
@@ -30,8 +29,8 @@ public class CurrencyLayerDto {
     private String privacy;
     private int timestamp; //unix timestamp로 저장이 된다.
     private String source;
-    private HashMap<String, Double> quotes; //Contains all exchange rate values, consisting of the currency pairs and their respective conversion rates.
-    private HashMap<String, Double> error;
+    private Map<String, Double> quotes; //Contains all exchange rate values, consisting of the currency pairs and their respective conversion rates.
+    private Map<String, Double> error;
 
 
 }

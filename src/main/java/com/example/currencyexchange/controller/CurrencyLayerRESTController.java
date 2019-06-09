@@ -1,9 +1,7 @@
 package com.example.currencyexchange.controller;
 
 import com.example.currencyexchange.dto.CurrencyExchangeInputDto;
-import com.example.currencyexchange.dto.CurrencyLayerDto;
 import com.example.currencyexchange.service.CurrencyCalcService;
-import com.example.currencyexchange.service.CurrencyLayerAPIService;
 import com.example.currencyexchange.util.DecimalFormat;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,12 +11,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import reactor.core.publisher.Mono;
 
 import javax.validation.Valid;
-import java.text.NumberFormat;
 import java.util.HashMap;
-import java.util.Locale;
 import java.util.Map;
 
 @RestController
