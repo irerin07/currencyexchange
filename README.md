@@ -5,6 +5,10 @@ currencylayer api를 사용해 구현한 간단한 환율 계산 프로그램입
 ![Imgur](http://i.imgur.com/ags9igM.png)
 ![Imgur](http://i.imgur.com/77lno5l.png)
 
+http://ec2-52-79-86-22.ap-northeast-2.compute.amazonaws.com:8080/
+
+EC2는 24시간 열어둘 수 없어서 오전 10시부터 오후 2시까지 열어두겠습니다.
+
 
 # 사용 기술
 * Java 8
