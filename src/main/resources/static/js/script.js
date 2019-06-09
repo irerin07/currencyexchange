@@ -1,14 +1,7 @@
-$(document).ready(function () {
+document.addEventListener('DOMContentLoaded', function() {
     getCurrencyRate();
 });
-$('select').on('change', function () {
-    getCurrencyRate();
-});
-$('#amount').keypress(function (e) {
-    if (e.which === 13) {
-        getExchangedAmount();
-    }
-});
+
 
 function getCurrencyRate() {
     var from = $('#from').val();

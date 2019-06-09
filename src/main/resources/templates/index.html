@@ -31,7 +31,7 @@
 
             <div class="todiv">
                 <label for="to"><b>수취 국가: </b></label>
-                <select id="to" class="form-control" style="width: 450px">
+                <select id="to" class="form-control" style="width: 450px" onchange="getCurrencyRate()">
                     <option selected value="KRW">한국(KRW)</option>
                     <option value="JPY">일본(JPY)</option>
                     <option value="PHP">필리핀(PHP)</option>
@@ -65,3 +65,10 @@
 
 </div>
 </body>
+<script>
+    $('#amount').keypress(function (e) {
+        if (e.which === 13) {
+            getExchangedAmount();
+        }
+    });
+</script>
