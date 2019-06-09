@@ -58,7 +58,7 @@ function getExchangedAmount() {
 
     function wrongInput() {
         var amount = $('#amount').val();
-        var reg = /[-+]?[0-9]*\.?[0-9]+/;
+        var reg = /^(?:0|[1-9][0-9]*)\.[0-9]+$/;
         if (reg.test(amount) == false) {
             return true;
         }
